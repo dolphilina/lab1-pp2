@@ -77,8 +77,9 @@ movies = [
 ]
 
 def high():
-    for i in range(len(movies)):
-        if movies[i]["imdb"] > 5.5:
+    for i in range(len(movies)):# Происходит итерация по индексам списка movies.
+        if movies[i]["imdb"] > 5.5: 
+# Проверяется рейтинг каждого фильма по индексу i в списке movies. Если рейтинг фильма выше 5.5, выполняется следующее действие.
             print(movies[i])
 
 high()
