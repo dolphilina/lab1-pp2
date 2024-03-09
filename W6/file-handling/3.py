@@ -2,7 +2,7 @@
 
 import os
 
-path = r"week_6\File_handling"
+path = r"W6\\file-handling"
 
 print(os.path.exists(path))
 print(os.path.basename(path))
