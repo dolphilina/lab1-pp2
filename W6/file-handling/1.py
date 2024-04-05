@@ -2,7 +2,7 @@
 
 import os
  
-path = "week_6\\File_handling"
+path = "W6\\file-handling"
 dir_list = os.listdir(path)
  
 print("Files and directories in '", path, "' :")
