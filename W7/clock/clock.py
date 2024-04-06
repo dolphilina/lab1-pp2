@@ -36,6 +36,7 @@ while True:
         if event.type == pygame.QUIT:
             exit()
 
+
     surface.blit(bg, bg_rect)
     t = datetime.now()
     hour, minute, second = ((t.hour % 12) * 5 + t.minute // 12) % 60, t.minute, t.second
