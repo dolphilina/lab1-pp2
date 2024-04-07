@@ -5,6 +5,7 @@ import random
 pygame.init()
 
 screen = pygame.display.set_mode((300, 800))    #width, height
+pygame.display.set_caption("Races ୨୧")
 FPS = pygame.time.Clock() 
 font_1 = pygame.font.SysFont('Verdana', 20)   #font style
 font_2 = pygame.font.SysFont('Verdana', 50)   
@@ -129,5 +130,5 @@ while True:
                     exit()
                     
             
-    FPS.tick(120)
+    FPS.tick(60)
     pygame.display.update()
