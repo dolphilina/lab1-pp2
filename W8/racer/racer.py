@@ -105,8 +105,8 @@ while True:
         screen.blit(pygame.image.load('W8\\racer\\files\\button.png'), (45, 405))
         s2 = font_2.render('Restart', True, (255, 255, 255))
         screen.blit(s2,(60, 300))  
-        s2 = font_2.render('Quit', True, (255, 255, 255))
-        screen.blit(s2,(98, 400))   
+        s3 = font_2.render('Quit', True, (255, 255, 255))
+        screen.blit(s3,(98, 400))   
         
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
