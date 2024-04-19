@@ -12,8 +12,12 @@ red, green, blue = 0, 0, 0                      #size of erery color at the fini
 x, y = 0, 0
 draw = False                                    #bool func to check if the button is pressed
 erase = False
-rect = False
+square = False
 circle = True
+rect = False
+rhomb = False
+et = False
+rt = False
 d = 10                                          #brush size
 
 
@@ -44,6 +48,8 @@ while True:
         draw, erase = False, False
                     
     for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+                    exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 if x < 800:                         #clicking on the mouse to start/stop drawing
@@ -51,12 +57,47 @@ while True:
                     else:
                         draw = True
                         erase = False
-                elif 810 < x < 860 and 200 < y < 280:       #shape buttons
-                    rect = True
-                    circle = False
-                elif 910 < x < 960 and 200 < y < 280:
-                    circle = True
+                elif 810 < x < 890 and 300 < y < 380:       #shape buttons
+                    square = True
+                    circle = False  #square
                     rect = False
+                    rhomb = False
+                    et = False
+                    rt = False
+                elif 910 < x < 990 and 300 < y < 380:
+                    circle = True
+                    square = False  #circle
+                    rect = False
+                    rhomb = False
+                    et = False
+                    rt = False
+                elif 810 < x < 890 and 420 < y < 480:
+                    rect = True
+                    circle = False  #rectangle
+                    square = False
+                    rhomb = False
+                    et = False
+                    rt = False
+                elif 910 < x < 990 and 420 < y < 480:
+                    rhomb = True
+                    rect = False
+                    circle = False  #rhombus
+                    square = False
+                    et = False
+                    rt = False
+                elif 810 < x < 890 and 510 < y < 590:
+                    et = True
+                    rect = False
+                    circle = False  #equivalent triangle
+                    square = False
+                    rhomb = False
+                    rt = False
+                elif 910 < x < 990 and 510 < y < 590:
+                    rt = True
+                    rect = False
+                    circle = False  #right triangle
+                    square = False
+                    rhomb = False
                 elif 810 < x < 860 and 10 < y < 60:         #color buttons
                         red, green, blue = 255, 0, 0
                 elif 875 < x < 925 and 10 < y < 60:
@@ -69,10 +110,10 @@ while True:
                         red, green, blue = 0, 255, 255
                 elif 940 < x < 990 and 70 < y < 120:
                         red, green, blue = 255, 0, 255
-                elif 805 < x < 845 and 350 < y < 390: d = 5     #size buttons
-                elif 855 < x < 895 and 350 < y < 390: d = 10
-                elif 905 < x < 945 and 350 < y < 390: d = 20
-                elif 955 < x < 995 and 350 < y < 390: d = 50
+                elif 805 < x < 845 and 200 < y < 240: d = 5     #size buttons
+                elif 855 < x < 895 and 200 < y < 240: d = 10
+                elif 905 < x < 945 and 200 < y < 240: d = 20
+                elif 955 < x < 995 and 200 < y < 240: d = 50
             elif event.button == 3:
                 if x < 800:                         #clicking on the right mouse to start/stop erasing
                     if erase: erase = False
@@ -102,8 +143,16 @@ while True:
     if draw and x < 799:                        #drawing
         if circle:
             pygame.draw.circle(screen, color, (x, y), d)
-        elif rect:
+        elif square:
             pygame.draw.rect(screen, color, [x, y, d*1.5, d*1.5])
+        elif rect:
+            pygame.draw.rect(screen, color, [x, y, d*1.5, d])
+        elif rhomb:
+            pygame.draw.polygon(screen, color, [[x, y-d], [x+d, y], [x, y+d], [x-d, y]])
+        elif et:
+            pygame.draw.polygon(screen, color, [[x, y], [x-d, y+d*1.5], [x+d, y+d*1.5]])
+        elif rt:
+            pygame.draw.polygon(screen, color, [[x, y], [x, y+d], [x+d, y+d]])
     elif erase and x < 799:
         pygame.draw.circle(screen, (255, 255, 255), (x, y), d)
         
@@ -119,16 +168,20 @@ while True:
     pygame.draw.rect(screen, (0, 255, 255), [875, 70, 50, 50])
     pygame.draw.rect(screen, (255, 0, 255), [940, 70, 50, 50])
 
-    pygame.draw.rect(screen, (236,183,179), [810, 200, 80, 80])     #shape
-    pygame.draw.circle(screen, (236,183,179), (950, 240), 40)
+    pygame.draw.rect(screen, (236,183,179), [810, 300, 80, 80])#square     #shape
+    pygame.draw.circle(screen, (236,183,179), (950, 340), 40)#circle
+    pygame.draw.rect(screen, (236,183,179), [810, 420, 80, 60])#rect
+    pygame.draw.polygon(screen, (236,183,179), [[950, 410], [990, 450], [950, 490], [910, 450]])#rhombus
+    pygame.draw.polygon(screen, (236,183,179), [[850, 510], [810, 590], [890, 590]])#equivalent triangle
+    pygame.draw.polygon(screen, (236,183,179), [[910, 510], [910, 590], [990, 590]])#right triangle
 
-    pygame.draw.rect(screen, (236,183,179), [805, 350, 40, 40])     #size
-    pygame.draw.rect(screen, (236,183,179), [855, 350, 40, 40])
-    pygame.draw.rect(screen, (236,183,179), [905, 350, 40, 40])
-    pygame.draw.rect(screen, (236,183,179), [955, 350, 40, 40])
+    pygame.draw.rect(screen, (236,183,179), [805, 200, 40, 40])     #size
+    pygame.draw.rect(screen, (236,183,179), [855, 200, 40, 40])
+    pygame.draw.rect(screen, (236,183,179), [905, 200, 40, 40])
+    pygame.draw.rect(screen, (236,183,179), [955, 200, 40, 40])
     
-    screen.blit(s8,(880, 390))                                      #big text
-    screen.blit(s7,(863, 285)) 
+    screen.blit(s8,(880, 240))                                      #big text
+    screen.blit(s7,(863, 590)) 
     screen.blit(s6,(863, 125))
 
     screen.blit(s1,(805, 150))                                      #little text
@@ -136,12 +189,12 @@ while True:
     screen.blit(s3,(805, 170)) 
     screen.blit(s4,(805, 750)) 
     screen.blit(s5,(805, 760)) 
-    screen.blit(s13,(805, 415)) 
+    screen.blit(s13,(805, 265)) 
 
-    screen.blit(s9,(815, 355))                                      #button text
-    screen.blit(s10,(865, 355))
-    screen.blit(s11,(915, 355))
-    screen.blit(s12,(965, 355))
+    screen.blit(s9,(815, 205))                                      #button text
+    screen.blit(s10,(865, 205))
+    screen.blit(s11,(915, 205))
+    screen.blit(s12,(965, 205))
     
     pygame.display.flip()
     FPS.tick(120)

@@ -18,6 +18,7 @@ coins = 0                                       #coin count
 collected = False                               #bool to check if the coin is collected
 x_coin = random.randint(0, 225)                 #coin position
 y_coin = -150
+coin_val = random.randint(1, 8)
 #characteristics of the moving car
 x_car_1 = round(random.randrange(0, 225))       #position of the car is random
 x_car_2 = round(random.randint(0,225))
@@ -28,7 +29,7 @@ car_col_2 = random.randint(1, 5)
 speed_1 = random.randint(5, 10)                 #speed of the cars are also random
 speed_2 = random.randint(5, 10)
 
-#different car images
+#different car and coin images
 cars = {
     1 : 'W8\\racer\\files\\car1.png',
     2 : 'W8\\racer\\files\\car2.png',
@@ -36,7 +37,16 @@ cars = {
     4 : 'W8\\racer\\files\\car4.png',
     5 : 'W8\\racer\\files\\car5.png',
 }
-
+coin_im = {
+    1 : 'W8\\racer\\files\\coin.png',
+    2 : 'W8\\racer\\files\\coin.png',
+    3 : 'W8\\racer\\files\\coin.png',
+    4 : 'W8\\racer\\files\\coin.png',
+    5 : 'W8\\racer\\files\\coin.png',
+    6 : 'W8\\racer\\files\\coin2.png',
+    7 : 'W8\\racer\\files\\coin2.png',
+    8 : 'W8\\racer\\files\\coin3.png',
+}
 
 while True: 
     pressed = pygame.key.get_pressed()
@@ -52,7 +62,7 @@ while True:
     
     if not crash:               #this part works if game is not over
         #place of the coin
-        screen.blit(pygame.image.load('W8\\racer\\files\\coin.png'), (x_coin, y_coin))
+        screen.blit(pygame.image.load(coin_im[coin_val]), (x_coin, y_coin))
         #place of the driving car
         screen.blit(pygame.image.load(cars[car_col_1]), (x_car_1, y_car_1))
         screen.blit(pygame.image.load(cars[car_col_2]), (x_car_2, y_car_2))
@@ -86,11 +96,16 @@ while True:
         if y_coin > 800 or collected: 
             y_coin = -150
             x_coin = random.randint(0,225)
+            coin_val = random.randint(1, 8)
             collected = False
         
         if 750 > y_coin >= y-70:                          #counting the coins
             if x-75 <= x_coin <= x+75:
-                coins += 1
+                if coin_val <= 5:
+                    coins += 1
+                elif coin_val < 8:
+                    coins += 2
+                else: coins += 3
                 collected = True
                 
         if 750 >= y_car_1 >= y-116:                  #crashes
@@ -125,6 +140,7 @@ while True:
                     car_col_2 = random.randint(1, 5) 
                     speed_1 = random.randint(5, 10)                 #speed of the cars are also random
                     speed_2 = random.randint(5, 10)
+                    coin_val = random.randint(1, 8)
                 if 45 < pygame.mouse.get_pos()[0] < 255 and 405 < pygame.mouse.get_pos()[1] < 465:
                     pygame.quit()
                     exit()

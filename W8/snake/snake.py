@@ -37,6 +37,8 @@ food_dict = {1: 'W8\\snake\\1p.png',        #food pics
 
 snake_parts = []                                        #coordinates of each part of the snake
 
+food_spawn_time = None
+FOOD_LIFETIME = 5000
 
 while True:
     if not game_over:
@@ -63,6 +65,7 @@ while True:
 
         snake_head = [x, y]                     #pos of the snake head
         if snake_head[0] == foodx and snake_head[1] == foody:   #eating
+            food_spawn_time = pygame.time.get_ticks()
             if food_type < 7: snake_length += 1
             elif food_type < 10: snake_length += 2
             else: snake_length += 3
@@ -83,7 +86,13 @@ while True:
             for j in range(20, 800, 40):
                 pygame.draw.rect(screen, (251, 224, 217), [i, j, 20, 20])
 
-
+        current_time = pygame.time.get_ticks()
+        if food_spawn_time is not None and current_time - food_spawn_time > FOOD_LIFETIME:
+            # Пересоздать еду и сбросить таймер
+            foodx = round(random.randrange(0, 780) / 20.0) * 20.0
+            foody = round(random.randrange(0, 780) / 20.0) * 20.0
+            food_type = random.randint(1, 10)
+            food_spawn_time = current_time
         snake_parts.append(snake_head)                              #add heat to the snake list
         if(len(snake_parts) > snake_length):                        #remove the last element
             del snake_parts[0]
