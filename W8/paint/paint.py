@@ -135,9 +135,9 @@ while True:
         blue -= 1
     color = (red, green, blue)
     
-    if pressed[pygame.K_4]:                     #keyboard size buttons
+    if pressed[pygame.K_4] and d < 200:                     #keyboard size buttons
         d += 1
-    if pressed[pygame.K_5]:
+    if pressed[pygame.K_5] and d > 2:
         d -= 1
         
     if draw and x < 799:                        #drawing
