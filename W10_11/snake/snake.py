@@ -24,9 +24,9 @@ class Snake:
     def drawingSnake(self):
         for block in self.body: # the for loop that iterate our list of cooredinates of snake elements
             body_rect = pygame.Rect(block.x * cell_size, block.y * cell_size, cell_size, cell_size) # creating rectangle of the snake elements
-            pygame.draw.rect(screen, (0 ,128 ,0), body_rect) # drawing the rectangles
+            pygame.draw.rect(screen, (164, 184, 172), body_rect) # drawing the rectangles
         snake_head = pygame.Rect(self.body[0].x * cell_size, self.body[0].y * cell_size, cell_size, cell_size)
-        headTexture = pygame.image.load('W10\\snake\\snakehead.png')
+        headTexture = pygame.image.load('W10_11\\snake\\snakehead.png')
         headTexture = pygame.transform.scale(headTexture, (40, 40))
         screen.blit(headTexture, snake_head)
 
@@ -49,7 +49,7 @@ class Fruit:
     
     def drawingFruit(self):
         fruit_rect = pygame.Rect(self.pos.x * cell_size, self.pos.y * cell_size, cell_size, cell_size) 
-        self.food = pygame.image.load(f'W10\\snake\\food{self.randomFood}.png').convert_alpha() # spawning random fruit
+        self.food = pygame.image.load(f'W10_11\\snake\\food{self.randomFood}.png').convert_alpha() # spawning random fruit
         self.food = pygame.transform.scale(self.food, (35, 35)) # scale the image
         # pygame.draw.rect(screen, (107 ,142 ,35), fruit_rect)
         screen.blit(self.food, fruit_rect)
@@ -106,13 +106,13 @@ class Game:
 
     # check for our snake collides with borders
     def gameOver(self):
-        if self.snake.body[0].x >= 19:
+        if self.snake.body[0].x >= 20:
             return True
-        if self.snake.body[0].x <= 0:
+        if self.snake.body[0].x < 0:
             return True
-        if self.snake.body[0].y >= 19:
+        if self.snake.body[0].y >= 20:
             return True
-        if self.snake.body[0].y <= 0:
+        if self.snake.body[0].y < 0:
             return True
         
         # check for our snake collides with his body
@@ -136,18 +136,18 @@ class Game:
     
     # drawing the UI of our game, such us score and level
     def scoreDrawing(self):
-        score_text = "Score: " + str(self.score)
+        score_text = "Score: " + str(int(self.score))
         score_surface = font.render(score_text, True, (56, 74, 12))
         score_rect = score_surface.get_rect(center = (cell_size * cell_number - 150, 40))
         screen.blit(score_surface, score_rect)
 
-        level_text = "Level: " + str(self.level)
+        level_text = "Level: " + str(int(float(self.level)))
         level_surface = font.render(level_text, True, (56, 74, 12))
         level_rect = level_surface.get_rect(center = (cell_size * cell_number - 150, 70))
         screen.blit(level_surface, level_rect)
 
     def spawingWalls(self):
-        if(self.level >= 3):
+        if(int(float(self.level)) >= 3):
             wall_coordinates.append(Vector2(9, 8))
             wall_coordinates.append(Vector2(9, 9))
             wall_coordinates.append(Vector2(9, 10))
@@ -156,42 +156,42 @@ class Game:
                 wall_rect = pygame.Rect(wall.x * cell_size, wall.y * cell_size, cell_size, cell_size)
                 screen.blit(wall_texture, wall_rect)
         
-        if(self.level >= 4):
+        if(int(float(self.level)) >= 4):
             for wall in range(0, 20):
                 wall_rect = pygame.Rect(0, wall * cell_size, cell_size, cell_size)
                 screen.blit(wall_texture, wall_rect)
                 wall_coordinates.append(Vector2(0, wall))
-        if(self.level >= 5):
+        if(int(float(self.level)) >= 5):
             for wall in range(0, 20):
                 wall_rect = pygame.Rect(19 * cell_size, wall * cell_size, cell_size, cell_size)
                 screen.blit(wall_texture, wall_rect)
                 wall_coordinates.append(Vector2(19, wall))
-        if(self.level >= 6):
+        if(int(float(self.level)) >= 6):
             for wall in range(1, 4):
                 wall_rect = pygame.Rect(wall * cell_size, 3 * cell_size, cell_size, cell_size)
                 screen.blit(wall_texture, wall_rect)
                 wall_coordinates.append(Vector2(wall, 3))
-        if(self.level >= 7):
+        if(int(float(self.level)) >= 7):
             for wall in range(1, 4):
                 wall_rect = pygame.Rect(wall * cell_size, 10 * cell_size, cell_size, cell_size)
                 screen.blit(wall_texture, wall_rect)
                 wall_coordinates.append(Vector2(wall, 10))
-        if(self.level >= 8):
+        if(int(float(self.level)) >= 8):
             for wall in range(1, 4):
                 wall_rect = pygame.Rect(wall * cell_size, 16 * cell_size, cell_size, cell_size)
                 screen.blit(wall_texture, wall_rect)
                 wall_coordinates.append(Vector2(wall, 16))
-        if(self.level >= 9):
+        if(int(float(self.level)) >= 9):
             for wall in range(16, 19):
                 wall_rect = pygame.Rect(wall * cell_size, 3 * cell_size, cell_size, cell_size)
                 screen.blit(wall_texture, wall_rect)
                 wall_coordinates.append(Vector2(wall, 3))
-        if(self.level >= 10):
+        if(int(float(self.level)) >= 10):
             for wall in range(16, 19):
                 wall_rect = pygame.Rect(wall * cell_size, 10 * cell_size, cell_size, cell_size)
                 screen.blit(wall_texture, wall_rect)
                 wall_coordinates.append(Vector2(wall, 10))
-        if(self.level >= 11):
+        if(int(float(self.level)) >= 11):
             for wall in range(16, 19):
                 wall_rect = pygame.Rect(wall * cell_size, 16 * cell_size, cell_size, cell_size)
                 screen.blit(wall_texture, wall_rect)
@@ -216,7 +216,7 @@ screen = pygame.display.set_mode((cell_size * cell_number, cell_size * cell_numb
 done = False
 
 
-font = pygame.font.Font('W10\\snake\\font.ttf', 25) # imporing our font, from our file
+font = pygame.font.Font('W10_11\\snake\\font.ttf', 25) # imporing our font, from our file
 
 nowSeconds = int((datetime.datetime.now()).strftime("%S"))
 
@@ -224,9 +224,9 @@ game = Game() # creating the game object
 snake_speed = 150
 
 wall1 = [Vector2(9, 8), Vector2(9, 9), Vector2(9, 10), Vector2(9, 11)]
-wall_texture = pygame.image.load('W10\\snake\\cobble4040.png')
+wall_texture = pygame.image.load('W10_11\\snake\\cobble4040.png')
 wall_coordinates = []
-pause = pygame.image.load('W10\\snake\\pause.png')
+pause = pygame.image.load('W10_11\\snake\\pause.png')
 
 isPause = False
 
@@ -243,11 +243,12 @@ def name_checker(NAMEBOX):
     data = cur.fetchall()
 
     for row in data:
-        if user_name == str(row[1]):
+        if user_name == str(row[0]):
             cnt += 1
-    if cnt > 0:
-        print(f'User with this name is already exist, the level of this user is: {int(row[2]) // 3}, please enter another name: \n')
-    else: start_the_game()
+        if cnt > 0:
+            game.level = 1 + row[1] / 3
+            game.score = row[1]
+    start_the_game()
 
 def start_the_game():
     global done
@@ -299,7 +300,13 @@ def start_the_game():
         if abs(seconds - nowSeconds) > 3:
             game.fruit.randomize()
             nowSeconds = seconds
-        screen.fill((175, 215, 70))
+        screen.fill((236,183,179))
+        for i in range(0, 800, 40):
+            for j in range(0, 800, 40):
+                pygame.draw.rect(screen, (251, 224, 217), [i, j, 20, 20])
+        for i in range(20, 800, 40):
+            for j in range(20, 800, 40):
+                pygame.draw.rect(screen, (251, 224, 217), [i, j, 20, 20])
         game.spawingWalls()
         game.drawElements()
         # game.update()
@@ -309,7 +316,7 @@ def start_the_game():
 
 
 menu = pygame_menu.Menu('Welcome', 800, 800,
-                       theme=pygame_menu.themes.THEME_BLUE)
+                       theme=pygame_menu.themes.THEME_GREEN)
 
 name_box = menu.add.text_input('Name :', default='user1')
 menu.add.button('Play', name_checker, name_box)
